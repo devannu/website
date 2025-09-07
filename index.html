@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>White & Blue — Hero Slider + Nav + Form (Tailwind)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="script.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    hide native scrollbar but keep scrolling
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+     small helper for dropdown animation */
+     .fade-down { transform-origin: top center; transition: transform .16s ease, opacity .16s ease; }
+    .fade-down.hidden { transform: translateY(-6px); opacity: 0; pointer-events: none; }
+    .fade-down.visible { transform: translateY(0); opacity: 1; pointer-events: auto; } 
+  </style>
+    <style>
+    .carousel {
+      transition: transform 0.6s ease-in-out;
+    }
+    .info {
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .active .info {
+      opacity: 1;
+    }
+  </style>
+  //   <!-- Hide Scrollbar -->
+  <style>
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- ===== HEADER (white + blue theme) ===== -->
+  <header class="bg-white shadow">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="flex items-center justify-between py-3">
+        <!-- logo + select -->
+        <div class="flex items-center gap-4">
+          <img src="https://dummyimage.com/120x40/0ea5e9/ffffff&text=Logo" alt="Logo" class="h-10 w-auto"/>
+          <div class="hidden sm:flex items-center gap-2 text-sm text-slate-600">
+            
+          </div>
+        </div>
+
+        <!-- desktop search -->
+        <div class="flex-1 px-4 hidden md:block">
+          <input type="search" placeholder="Search for Colleges, Exams, Courses and More.." 
+                 class="w-full rounded-lg p-3 border focus:ring-2 focus:ring-blue-400" />
+        </div>
+
+        <!-- actions + mobile toggle -->
+        <div class="flex items-center gap-3">
+         
+          </nav>
+
+          <button class="hidden md:inline-block bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Admission Open</button>
+
+          <!-- mobile menu toggle -->
+          <button id="mobileMenuBtn" class="md:hidden p-2 rounded-md bg-blue-50 text-blue-600">
+            ☰
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Subnav (dropdowns) -->
+    <div class="bg-white border-t">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="flex items-center justify-between">
+          <!-- left: nav list (desktop) -->
+          <ul id="mainNav" class="hidden md:flex gap-6 py-3 text-sm">
+            <!-- each nav item uses data-dropdown to match a dropdown panel -->
+            <li class="relative group">
+              <button class="navBtn inline-flex items-center gap-2 text-slate-700 hover:text-blue-600" data-dropdown="dd-cat">CAT</button>
+              <div id="dd-cat" class="absolute left-0 mt-2 bg-white rounded shadow fade-down hidden w-56 z-40">
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">Overview</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">Syllabus</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">Exam Dates</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">Registration</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">Preparation Tips</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">Previous Papers</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">Cutoffs</a>
+              </div>
+            </li>
+
+            <li class="relative group">
+              <button class="navBtn inline-flex items-center gap-2 text-slate-700 hover:text-blue-600" data-dropdown="dd-admission">Admission 2025</button>
+              <div id="dd-admission" class="absolute left-0 mt-2 bg-white rounded shadow fade-down hidden w-56 z-40">
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">Important Dates</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">Application Process</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">Eligibility</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">Fees</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">Scholarships</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">Counselling</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">FAQs</a>
+              </div>
+            </li>
+
+            <li class="relative group">
+              <button class="navBtn inline-flex items-center gap-2 text-slate-700 hover:text-blue-600" data-dropdown="dd-exams">Exams</button>
+              <div id="dd-exams" class="absolute left-0 mt-2 bg-white rounded shadow fade-down hidden w-56 z-40">
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">CAT</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">JEE Main</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">JEE Advanced</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">NEET</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">CUET</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">GATE</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">CLAT</a>
+              </div>
+            </li>
+
+            <li class="relative group">
+              <button class="navBtn inline-flex items-center gap-2 text-slate-700 hover:text-blue-600" data-dropdown="dd-tier12">Tier 1 & 2 Colleges for MBA</button>
+              <div id="dd-tier12" class="absolute left-0 mt-2 bg-white rounded shadow fade-down hidden w-72 z-40">
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">IIMs</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">XLRI</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">FMS</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">SPJIMR</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">MDI</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">ISB</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">NMIMS</a>
+              </div>
+            </li>
+
+            <li class="relative group">
+              <button class="navBtn inline-flex items-center gap-2 text-slate-700 hover:text-blue-600" data-dropdown="dd-tier3">Tier 3 Colleges for MBA</button>
+              <div id="dd-tier3" class="absolute left-0 mt-2 bg-white rounded shadow fade-down hidden w-72 z-40">
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">Regional College A</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">Regional College B</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">Regional College C</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">Regional College D</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">Regional College E</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">Regional College F</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">Regional College G</a>
+              </div>
+            </li>
+
+            <li class="relative group">
+              <button class="navBtn inline-flex items-center gap-2 text-slate-700 hover:text-blue-600" data-dropdown="dd-topu">Top University/Colleges</button>
+              <div id="dd-topu" class="absolute left-0 mt-2 bg-white rounded shadow fade-down hidden w-60 z-40">
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">Engineering</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">Management</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">Medical</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">Law</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">Arts</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">Science</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">Agriculture</a>
+              </div>
+            </li>
+
+            <li class="relative group">
+              <button class="navBtn inline-flex items-center gap-2 text-slate-700 hover:text-blue-600" data-dropdown="dd-services">Our Services</button>
+              <div id="dd-services" class="absolute left-0 mt-2 bg-white rounded shadow fade-down hidden w-64 z-40">
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">Counselling</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">Application Assistance</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">Scholarship Guidance</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">Mock GD/PI</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">Resume Review</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">Internship Placement</a>
+                <a class="block px-4 py-2 hover:bg-slate-50" href="#">Career Workshops</a>
+              </div>
+            </li>
+
+            <li class="relative group">
+              <a class="inline-flex items-center gap-2 text-slate-700 hover:text-blue-600" href="#">Contact Us</a>
+            </li>
+          </ul>
+
+          <!-- mobile nav container (collapsed by toggle) -->
+          <div id="mobileNav" class="md:hidden hidden">
+            <div class="px-4 pb-4 space-y-2">
+              <!-- Mobile dropdowns: click to toggle each group (we'll handle with JS) -->
+              <div>
+                <button data-mobile-dropdown="m-cat" class="w-full text-left px-3 py-2 bg-white rounded border">CAT</button>
+                <div id="m-cat" class="hidden mt-1 bg-white rounded shadow p-2 space-y-1">
+                  <a class="block px-2 py-1" href="#">Overview</a>
+                  <a class="block px-2 py-1" href="#">Syllabus</a>
+                  <a class="block px-2 py-1" href="#">Exam Dates</a>
+                  <a class="block px-2 py-1" href="#">Registration</a>
+                  <a class="block px-2 py-1" href="#">Preparation Tips</a>
+                  <a class="block px-2 py-1" href="#">Previous Papers</a>
+                  <a class="block px-2 py-1" href="#">Cutoffs</a>
+                </div>
+              </div>
+
+              <div>
+                <button data-mobile-dropdown="m-admission" class="w-full text-left px-3 py-2 bg-white rounded border">Admission 2025</button>
+                <div id="m-admission" class="hidden mt-1 bg-white rounded shadow p-2 space-y-1">
+                  <a class="block px-2 py-1" href="#">Important Dates</a>
+                  <a class="block px-2 py-1" href="#">Application Process</a>
+                  <a class="block px-2 py-1" href="#">Eligibility</a>
+                  <a class="block px-2 py-1" href="#">Fees</a>
+                  <a class="block px-2 py-1" href="#">Scholarships</a>
+                  <a class="block px-2 py-1" href="#">Counselling</a>
+                  <a class="block px-2 py-1" href="#">FAQs</a>
+                </div>
+              </div>
+
+              <div>
+                <button data-mobile-dropdown="m-exams" class="w-full text-left px-3 py-2 bg-white rounded border">Exams</button>
+                <div id="m-exams" class="hidden mt-1 bg-white rounded shadow p-2 space-y-1">
+                  <a class="block px-2 py-1" href="#">CAT</a>
+                  <a class="block px-2 py-1" href="#">JEE Main</a>
+                  <a class="block px-2 py-1" href="#">JEE Advanced</a>
+                  <a class="block px-2 py-1" href="#">NEET</a>
+                  <a class="block px-2 py-1" href="#">CUET</a>
+                  <a class="block px-2 py-1" href="#">GATE</a>
+                  <a class="block px-2 py-1" href="#">CLAT</a>
+                </div>
+              </div>
+
+              <!-- copy other mobile sections similarly (tier12, tier3, topu, services, contact) -->
+              <div>
+                <button data-mobile-dropdown="m-tier12" class="w-full text-left px-3 py-2 bg-white rounded border">Tier 1 & 2 Colleges for MBA</button>
+                <div id="m-tier12" class="hidden mt-1 bg-white rounded shadow p-2 space-y-1">
+                  <a class="block px-2 py-1" href="#">IIMs</a>
+                  <a class="block px-2 py-1" href="#">XLRI</a>
+                  <a class="block px-2 py-1" href="#">FMS</a>
+                  <a class="block px-2 py-1" href="#">SPJIMR</a>
+                  <a class="block px-2 py-1" href="#">MDI</a>
+                  <a class="block px-2 py-1" href="#">ISB</a>
+                  <a class="block px-2 py-1" href="#">NMIMS</a>
+                </div>
+              </div>
+
+              <div>
+                <button data-mobile-dropdown="m-tier3" class="w-full text-left px-3 py-2 bg-white rounded border">Tier 3 Colleges for MBA</button>
+                <div id="m-tier3" class="hidden mt-1 bg-white rounded shadow p-2 space-y-1">
+                  <a class="block px-2 py-1" href="#">Regional A</a>
+                  <a class="block px-2 py-1" href="#">Regional B</a>
+                  <a class="block px-2 py-1" href="#">Regional C</a>
+                  <a class="block px-2 py-1" href="#">Regional D</a>
+                  <a class="block px-2 py-1" href="#">Regional E</a>
+                  <a class="block px-2 py-1" href="#">Regional F</a>
+                  <a class="block px-2 py-1" href="#">Regional G</a>
+                </div>
+              </div>
+
+              <div>
+                <button data-mobile-dropdown="m-topu" class="w-full text-left px-3 py-2 bg-white rounded border">Top University/Colleges</button>
+                <div id="m-topu" class="hidden mt-1 bg-white rounded shadow p-2 space-y-1">
+                  <a class="block px-2 py-1" href="#">Engineering</a>
+                  <a class="block px-2 py-1" href="#">Management</a>
+                  <a class="block px-2 py-1" href="#">Medical</a>
+                  <a class="block px-2 py-1" href="#">Law</a>
+                  <a class="block px-2 py-1" href="#">Arts</a>
+                  <a class="block px-2 py-1" href="#">Science</a>
+                  <a class="block px-2 py-1" href="#">Agriculture</a>
+                </div>
+              </div>
+
+              <div>
+                <button data-mobile-dropdown="m-services" class="w-full text-left px-3 py-2 bg-white rounded border">Our Services</button>
+                <div id="m-services" class="hidden mt-1 bg-white rounded shadow p-2 space-y-1">
+                  <a class="block px-2 py-1" href="#">Counselling</a>
+                  <a class="block px-2 py-1" href="#">Application Assistance</a>
+                  <a class="block px-2 py-1" href="#">Scholarship Guidance</a>
+                  <a class="block px-2 py-1" href="#">Mock GD/PI</a>
+                  <a class="block px-2 py-1" href="#">Resume Review</a>
+                  <a class="block px-2 py-1" href="#">Internships</a>
+                  <a class="block px-2 py-1" href="#">Workshops</a>
+                </div>
+              </div>
+
+              <div>
+                <a class="block px-3 py-2 bg-white rounded border text-center" href="#">Contact Us</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== HERO (6 slide carousel) ===== -->
+  <main class="mt-6">
+    <section class="relative max-w-7xl mx-auto px-4">
+      <div class="relative rounded-lg overflow-hidden bg-white">
+        <!-- Slides container -->
+        <div id="slider" class="relative h-[420px] md:h-[460px]">
+          <!-- each slide is absolutely stacked -->
+          <div class="slide absolute inset-0 hidden">
+            <img src="https://picsum.photos/id/1011/1600/600" alt="" class="w-full h-full object-cover">
+          </div>
+          <div class="slide absolute inset-0 hidden">
+            <img src="https://picsum.photos/id/1015/1600/600" alt="" class="w-full h-full object-cover">
+          </div>
+          <div class="slide absolute inset-0 hidden">
+            <img src="https://picsum.photos/id/1025/1600/600" alt="" class="w-full h-full object-cover">
+          </div>
+          <div class="slide absolute inset-0 hidden">
+            <img src="https://picsum.photos/id/1035/1600/600" alt="" class="w-full h-full object-cover">
+          </div>
+          <div class="slide absolute inset-0 hidden">
+            <img src="https://picsum.photos/id/1045/1600/600" alt="" class="w-full h-full object-cover">
+          </div>
+          <div class="slide absolute inset-0 hidden">
+            <img src="https://picsum.photos/id/1055/1600/600" alt="" class="w-full h-full object-cover">
+          </div>
+
+          <!-- overlay (left center content) -->
+          <div class="absolute inset-0 bg-black/35 flex items-center">
+            <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+              <div class="text-center md:text-left text-white">
+                <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight">PLACEMENTS</h2>
+                <p class="mt-3 text-sm md:text-base">5000+ Admissions | 95% Placement Record</p>
+
+                <div class="mt-6 flex justify-center md:justify-start gap-3">
+                  <input type="search" placeholder="Search for colleges, exams, courses and more.." 
+                         class="w-full md:w-[520px] rounded-l-lg p-3 border-0 outline-none text-black" />
+                  <button class="bg-blue-600 text-white px-6 rounded-r-lg hover:bg-blue-700">Search</button>
+                </div>
+
+                <div class="mt-4 flex gap-3 justify-center md:justify-start">
+                  <button class="bg-white text-blue-700 px-3 py-2 rounded">CBSE CLASS XII</button>
+                  <button class="bg-white text-blue-700 px-3 py-2 rounded">Bihar Board</button>
+                  <button class="bg-blue-600 text-white px-3 py-2 rounded">Need Counselling</button>
+                </div>
+              </div>
+
+              <!-- right side reserved for form on wide screens (we also absolutely position on desktop) -->
+              <div class="hidden md:block"></div>
+            </div>
+          </div>
+
+          <!-- left/right arrows (desktop) -->
+          <button id="prevBtn" aria-label="Previous" class="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 text-blue-700 rounded-full p-3 shadow">
+            ‹
+          </button>
+          <button id="nextBtn" aria-label="Next" class="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 text-blue-700 rounded-full p-3 shadow">
+            ›
+          </button>
+
+          <!-- indicators -->
+          <div id="indicators" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+            <!-- JS will populate -->
+          </div>
+        </div>
+
+        <!-- ===== Right-form: sticky on desktop, moves below on small screens ===== -->
+        <aside id="admissionForm" class="absolute top-10 right-6 w-80 md:w-96 bg-white rounded-xl shadow-lg p-6 text-gray-800">
+          <h3 class="text-lg font-semibold text-blue-600 mb-3">Admissions Open 2026 - 2027</h3>
+          <form class="space-y-3">
+            <input class="w-full border rounded px-3 py-2" placeholder="Enter Name *" />
+            <input class="w-full border rounded px-3 py-2" placeholder="Enter Email Address *" />
+            <input class="w-full border rounded px-3 py-2" placeholder="Enter Mobile Number *" />
+            <select class="w-full border rounded px-3 py-2">
+              <option>- Select Exam -</option>
+              <option>CAT</option><option>JEE</option><option>NEET</option>
+            </select>
+            <div class="flex gap-2">
+              <select class="flex-1 border rounded px-3 py-2">
+                <option>- State -</option><option>Delhi</option><option>Maharashtra</option><option>Karnataka</option>
+              </select>
+              <select class="flex-1 border rounded px-3 py-2">
+                <option>- City -</option><option>Delhi</option><option>Mumbai</option><option>Bengaluru</option>
+              </select>
+            </div>
+            <select class="w-full border rounded px-3 py-2">
+              <option>- Select Budget -</option>
+              <option>Under 1 Lakh</option><option>1-5 Lakh</option><option>5-10 Lakh</option><option>10+ Lakh</option>
+            </select>
+            <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Register</button>
+          </form>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <!--------------------------------------------------- First Setion End------------- ---------------------------------------------------------->
+
+  <!------------------------------ SECTION_02-------------------- -->
+
+  <div class="flex justify-center items-start p-6 bg-gray-100">
+
+      <!-- Blue Box -->
+  <div class=" rounded-2xl p-6 w-full max-w-7xl">
+    <div class="relative w-full">
+      
+      <!-- Left Arrow -->
+      <button id="prevBtn" class="absolute left-0 top-1/2 -translate-y-1/2 bg-white shadow-lg p-2 rounded-full z-10">
+        &#8592;
+      </button>
+
+      <!-- Carousel -->
+      <div id="carousel" class="flex space-x-4 overflow-hidden scroll-smooth">
+        
+        <!-- Card Template -->
+        <div class="min-w-[350px] max-w-[350px] flex bg-white rounded-xl shadow p-3">
+          <img src="https://via.placeholder.com/100x100" class="w-28 h-24 rounded-lg object-cover">
+          <div class="ml-3 flex flex-col justify-center">
+            <h3 class="font-bold text-sm">UP NEET UG 2025: Private medical college fees</h3>
+            <p class="text-gray-500 text-xs">September 7, 2025, 10:43 AM IST</p>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="min-w-[350px] max-w-[350px] flex bg-white rounded-xl shadow p-3">
+          <img src="https://via.placeholder.com/100x100" class="w-28 h-24 rounded-lg object-cover">
+          <div class="ml-3 flex flex-col justify-center">
+            <h3 class="font-bold text-sm">RRB NTPC Result 2025 LIVE</h3>
+            <p class="text-gray-500 text-xs">September 7, 2025, 10:36 AM IST</p>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="min-w-[350px] max-w-[350px] flex bg-white rounded-xl shadow p-3">
+          <img src="https://via.placeholder.com/100x100" class="w-28 h-24 rounded-lg object-cover">
+          <div class="ml-3 flex flex-col justify-center">
+            <h3 class="font-bold text-sm">HTET Result 2025 LIVE</h3>
+            <p class="text-gray-500 text-xs">September 7, 2025, 10:33 AM IST</p>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="min-w-[350px] max-w-[350px] flex bg-white rounded-xl shadow p-3">
+          <img src="https://via.placeholder.com/100x100" class="w-28 h-24 rounded-lg object-cover">
+          <div class="ml-3 flex flex-col justify-center">
+            <h3 class="font-bold text-sm">IIT Admission 2025: Important Dates</h3>
+            <p class="text-gray-500 text-xs">September 6, 2025, 09:20 PM IST</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Arrow -->
+      <button id="nextBtn" class="absolute right-0 top-1/2 -translate-y-1/2 bg-white shadow-lg p-2 rounded-full z-10">
+        &#8594;
+      </button>
+    </div>
+  </div>
+  </div>
+
+
+  <!------------------------------ SECTION_02 END-------------------- -->
+
+  <!------------------------------ SECTION_03----------------------- -->
+
+  <div class="bg-gray-100 flex justify-center items-start p-6">
+      <!-- Blue Background Box -->
+  <div class="bg-blue-100 rounded-2xl p-6 w-full max-w-7xl shadow-lg">
+    <!-- Title -->
+    <h2 class="text-2xl font-bold mb-6 text-blue-700">Top Study Places</h2>
+
+    <div class="relative w-full">
+      <!-- Left Button -->
+      <button id="prevBtn2" class="absolute left-0 top-1/2 -translate-y-1/2 bg-blue-600 text-white shadow-lg p-2 rounded-full z-10 hover:bg-blue-700">
+        &#8592;
+      </button>
+
+      <!-- Scrollable Container -->
+      <div id="carousel2" class="flex space-x-4 overflow-hidden scroll-smooth">
+        
+        <!-- Cards -->
+        <div class="min-w-[160px] max-w-[160px] h-[160px] flex flex-col justify-center items-center bg-white border-2 border-blue-500 rounded-lg shadow hover:shadow-xl transition">
+          <img src="https://img.icons8.com/ios-filled/100/1E40AF/india-gate.png" class="w-14 h-14">
+          <p class="mt-2 font-semibold text-blue-700">Delhi NCR</p>
+        </div>
+
+        <div class="min-w-[160px] max-w-[160px] h-[160px] flex flex-col justify-center items-center bg-white border-2 border-blue-500 rounded-lg shadow hover:shadow-xl transition">
+          <img src="https://img.icons8.com/ios-filled/100/1E40AF/city-buildings.png" class="w-14 h-14">
+          <p class="mt-2 font-semibold text-blue-700">Bangalore</p>
+        </div>
+
+        <div class="min-w-[160px] max-w-[160px] h-[160px] flex flex-col justify-center items-center bg-white border-2 border-blue-500 rounded-lg shadow hover:shadow-xl transition">
+          <img src="https://img.icons8.com/ios-filled/100/1E40AF/fort.png" class="w-14 h-14">
+          <p class="mt-2 font-semibold text-blue-700">Hyderabad</p>
+        </div>
+
+        <div class="min-w-[160px] max-w-[160px] h-[160px] flex flex-col justify-center items-center bg-white border-2 border-blue-500 rounded-lg shadow hover:shadow-xl transition">
+          <img src="https://img.icons8.com/ios-filled/100/1E40AF/temple.png" class="w-14 h-14">
+          <p class="mt-2 font-semibold text-blue-700">Pune</p>
+        </div>
+
+        <div class="min-w-[160px] max-w-[160px] h-[160px] flex flex-col justify-center items-center bg-white border-2 border-blue-500 rounded-lg shadow hover:shadow-xl transition">
+          <img src="https://img.icons8.com/ios-filled/100/1E40AF/gateway-of-india.png" class="w-14 h-14">
+          <p class="mt-2 font-semibold text-blue-700">Mumbai</p>
+        </div>
+
+        <div class="min-w-[160px] max-w-[160px] h-[160px] flex flex-col justify-center items-center bg-white border-2 border-blue-500 rounded-lg shadow hover:shadow-xl transition">
+          <img src="https://img.icons8.com/ios-filled/100/1E40AF/temple.png" class="w-14 h-14">
+          <p class="mt-2 font-semibold text-blue-700">Chennai</p>
+        </div>
+
+        <div class="min-w-[160px] max-w-[160px] h-[160px] flex flex-col justify-center items-center bg-white border-2 border-blue-500 rounded-lg shadow hover:shadow-xl transition">
+          <img src="https://img.icons8.com/ios-filled/100/1E40AF/city.png" class="w-14 h-14">
+          <p class="mt-2 font-semibold text-blue-700">Kolkata</p>
+        </div>
+
+        <div class="min-w-[160px] max-w-[160px] h-[160px] flex flex-col justify-center items-center bg-white border-2 border-blue-500 rounded-lg shadow hover:shadow-xl transition">
+          <img src="https://img.icons8.com/ios-filled/100/1E40AF/mountain.png" class="w-14 h-14">
+          <p class="mt-2 font-semibold text-blue-700">Shimla</p>
+        </div>
+
+        <div class="min-w-[160px] max-w-[160px] h-[160px] flex flex-col justify-center items-center bg-white border-2 border-blue-500 rounded-lg shadow hover:shadow-xl transition">
+          <img src="https://img.icons8.com/ios-filled/100/1E40AF/building.png" class="w-14 h-14">
+          <p class="mt-2 font-semibold text-blue-700">Lucknow</p>
+        </div>
+
+        <div class="min-w-[160px] max-w-[160px] h-[160px] flex flex-col justify-center items-center bg-white border-2 border-blue-500 rounded-lg shadow hover:shadow-xl transition">
+          <img src="https://img.icons8.com/ios-filled/100/1E40AF/palace.png" class="w-14 h-14">
+          <p class="mt-2 font-semibold text-blue-700">Jaipur</p>
+        </div>
+
+        <div class="min-w-[160px] max-w-[160px] h-[160px] flex flex-col justify-center items-center bg-white border-2 border-blue-500 rounded-lg shadow hover:shadow-xl transition">
+          <img src="https://img.icons8.com/ios-filled/100/1E40AF/mosque.png" class="w-14 h-14">
+          <p class="mt-2 font-semibold text-blue-700">Patna</p>
+        </div>
+
+        <div class="min-w-[160px] max-w-[160px] h-[160px] flex flex-col justify-center items-center bg-white border-2 border-blue-500 rounded-lg shadow hover:shadow-xl transition">
+          <img src="https://img.icons8.com/ios-filled/100/1E40AF/buildings.png" class="w-14 h-14">
+          <p class="mt-2 font-semibold text-blue-700">Ahmedabad</p>
+        </div>
+      </div>
+
+      <!-- Right Button -->
+      <button id="nextBtn2" class="absolute right-0 top-1/2 -translate-y-1/2 bg-blue-600 text-white shadow-lg p-2 rounded-full z-10 hover:bg-blue-700">
+        &#8594;
+      </button>
+    </div>
+  </div>
+
+  </div>
+
+  <!-- --------------------------SECTION 03 END------------------------ -->
+
+
+  <!-- --------------------------SECTION 04 END------------------------ -->
+     <section class="py-12 bg-white">
+    <h2 class="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-10">
+      What We Delivered To Our Students
+    </h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto px-4">
+      
+      <!-- Card 1 -->
+      <div class="bg-white border rounded-2xl shadow-sm p-6 text-center hover:shadow-md transition">
+        <div class="w-12 h-12 mx-auto mb-4 flex items-center justify-center rounded-xl bg-blue-100">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A2 2 0 013 15.382V6a2 2 0 012-2h2m6 16l5.447-2.724A2 2 0 0021 15.382V6a2 2 0 00-2-2h-2m-6 16V6m0 0L9 4m6 2l2-2" />
+          </svg>
+        </div>
+        <h3 class="text-3xl font-bold text-blue-600">20+</h3>
+        <p class="text-gray-600 mt-2">States Covered by Us</p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="bg-white border rounded-2xl shadow-sm p-6 text-center hover:shadow-md transition">
+        <div class="w-12 h-12 mx-auto mb-4 flex items-center justify-center rounded-xl bg-green-100">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+        <h3 class="text-3xl font-bold text-green-600">250+</h3>
+        <p class="text-gray-600 mt-2">Students Selected by Us</p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="bg-white border rounded-2xl shadow-sm p-6 text-center hover:shadow-md transition">
+        <div class="w-12 h-12 mx-auto mb-4 flex items-center justify-center rounded-xl bg-purple-100">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422A12.083 12.083 0 0112 21.5c-2.5-1.5-4.5-3.5-6-6l6-1.5z" />
+          </svg>
+        </div>
+        <h3 class="text-3xl font-bold text-purple-600">120+</h3>
+        <p class="text-gray-600 mt-2">Offers to Top 50 Universities</p>
+      </div>
+
+      <!-- Card 4 with Counter -->
+      <div class="bg-white border rounded-2xl shadow-sm p-6 text-center hover:shadow-md transition">
+        <div class="w-12 h-12 mx-auto mb-4 flex items-center justify-center rounded-xl bg-red-100">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6h13M9 6l7 7-7 7" />
+          </svg>
+        </div>
+        <h3 class="text-3xl font-bold text-red-600"><span id="counter">0</span>+</h3>
+        <p class="text-gray-600 mt-2">Hours of 1-1 Counselling</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!------------------------ SECTION 04 END-------------- -->
+
+  <!------------------------ SECTION 05 -------------- -->
+
+<section class="bg-white flex justify-center items-start p-6">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-7xl">
+
+    <!-- CAT Card -->
+    <div class="bg-blue-900 text-white rounded-lg overflow-hidden shadow-lg flex flex-col h-full">
+      <div class="text-center py-3 font-bold text-xl bg-blue-800">CAT</div>
+      <div class="flex justify-center items-center bg-white h-40">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/IIM_logo.png" alt="CAT" class="h-28 object-contain">
+      </div>
+      <div class="p-4 text-sm flex-1">
+        <ul class="list-disc pl-5 space-y-2">
+          <li>CAT 2024: Syllabus</li>
+          <li>CAT Mock Test & Previous year</li>
+          <li>CAT Registration & Admit card 2024</li>
+          <li>CAT Exam Pattern</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- XAT Card -->
+    <div class="bg-blue-900 text-white rounded-lg overflow-hidden shadow-lg flex flex-col h-full">
+      <div class="text-center py-3 font-bold text-xl bg-blue-800">XAT</div>
+      <div class="flex justify-center items-center bg-white h-40">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/XLRI_logo.png/800px-XLRI_logo.png" alt="XAT" class="h-28 object-contain">
+      </div>
+      <div class="p-4 text-sm flex-1">
+        <ul class="list-disc pl-5 space-y-2">
+          <li>XAT 2026: Syllabus</li>
+          <li>XAT Mock Test & Previous year</li>
+          <li>XAT Registration & Admit card 2025</li>
+          <li>XAT Exam Pattern</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- NMAT Card -->
+    <div class="bg-blue-900 text-white rounded-lg overflow-hidden shadow-lg flex flex-col h-full">
+      <div class="text-center py-3 font-bold text-xl bg-blue-800">NMAT</div>
+      <div class="flex justify-center items-center bg-white h-40">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/45/NMAT_logo.png" alt="NMAT" class="h-28 object-contain">
+      </div>
+      <div class="p-4 text-sm flex-1">
+        <ul class="list-disc pl-5 space-y-2">
+          <li>NMAT 2025: Syllabus</li>
+          <li>NMAT Mock Test & Previous year</li>
+          <li>NMAT Registration & Admit card 2025</li>
+          <li>NMAT Exam Pattern</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- CMAT Card -->
+    <div class="bg-blue-900 text-white rounded-lg overflow-hidden shadow-lg flex flex-col h-full">
+      <div class="text-center py-3 font-bold text-xl bg-blue-800">CMAT</div>
+      <div class="flex justify-center items-center bg-white h-40">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/CMAT_logo.png" alt="CMAT" class="h-28 object-contain">
+      </div>
+      <div class="p-4 text-sm flex-1">
+        <ul class="list-disc pl-5 space-y-2">
+          <li>CMAT 2026: Syllabus</li>
+          <li>CMAT Mock Test & Previous year</li>
+          <li>CMAT Registration & Admit card 2024</li>
+          <li>CMAT Exam Pattern</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+  <!------------------------ SECTION 05 END-------------------->
+
+
+
+  <!------------------------ SECTION 06 -------------------->
+
+  <section class="bg-gray-50 p-6" >
+    <!-- Section 1 -->
+  <div class="max-w-7xl mx-auto">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6">Top Universities/Colleges</h2>
+    <div class="flex items-center gap-3">
+      <!-- Left Arrow -->
+      <button id="scrollLeft1" class="p-3 bg-white rounded-full shadow hover:bg-gray-100">←</button>
+
+      <!-- Scrollable Container -->
+      <div id="cardsContainer1" class="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth w-full">
+        
+        <!-- Card 1 -->
+        <div class="min-w-[280px] sm:min-w-[320px] bg-white rounded-xl shadow-md overflow-hidden">
+          <img src="https://via.placeholder.com/400x200" class="w-full h-32 object-cover">
+          <div class="p-4">
+            <h3 class="font-semibold">Lexicon MILE - Management Institute of Leadership and…</h3>
+            <p class="text-gray-500 text-sm">Pune, Maharashtra | AICTE, NBA</p>
+            <p class="text-blue-600 font-medium mt-2">MBA/PGDM</p>
+            <p class="text-gray-700 text-sm">₹9.95 Lacs Total Fees</p>
+            <p class="text-yellow-500 font-semibold">⭐ 4.2/5 <span class="text-gray-500 text-xs">(61 reviews)</span></p>
+            <p class="text-gray-500 text-xs mt-1">Ranked 11 out of 80 TOI</p>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="min-w-[280px] sm:min-w-[320px] bg-white rounded-xl shadow-md overflow-hidden">
+          <img src="https://via.placeholder.com/400x200" class="w-full h-32 object-cover">
+          <div class="p-4">
+            <h3 class="font-semibold">KIIT School of Management [KSOM]</h3>
+            <p class="text-gray-500 text-sm">Bhubaneswar, Odisha | AICTE, UGC</p>
+            <p class="text-blue-600 font-medium mt-2">MBA/PGDM</p>
+            <p class="text-gray-700 text-sm">₹7.45 Lacs First Year Fees</p>
+            <p class="text-yellow-500 font-semibold">⭐ 4.3/5 <span class="text-gray-500 text-xs">(129 reviews)</span></p>
+            <p class="text-gray-500 text-xs mt-1">Ranked 2 out of 101 TOI</p>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="min-w-[280px] sm:min-w-[320px] bg-white rounded-xl shadow-md overflow-hidden">
+          <img src="https://via.placeholder.com/400x200" class="w-full h-32 object-cover">
+          <div class="p-4">
+            <h3 class="font-semibold">Parul University</h3>
+            <p class="text-gray-500 text-sm">Vadodara, Gujarat | AICTE, PCI</p>
+            <p class="text-blue-600 font-medium mt-2">B.Sc</p>
+            <p class="text-gray-700 text-sm">₹1.02 Lacs First Year Fees</p>
+            <p class="text-yellow-500 font-semibold">⭐ 4.1/5 <span class="text-gray-500 text-xs">(1261 reviews)</span></p>
+            <p class="text-gray-500 text-xs mt-1">Ranked 14 out of 52 Outlook</p>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="min-w-[280px] sm:min-w-[320px] bg-white rounded-xl shadow-md overflow-hidden">
+          <img src="https://via.placeholder.com/400x200" class="w-full h-32 object-cover">
+          <div class="p-4">
+            <h3 class="font-semibold">The West Bengal National University of Juridical Sciences - [NUJS]</h3>
+            <p class="text-gray-500 text-sm">Kolkata, West Bengal | BCI, UGC</p>
+            <p class="text-blue-600 font-medium mt-2">LLM</p>
+            <p class="text-gray-700 text-sm">₹1.08 Lacs Total Fees</p>
+            <p class="text-yellow-500 font-semibold">⭐ 4.2/5 <span class="text-gray-500 text-xs">(28 reviews)</span></p>
+            <p class="text-gray-500 text-xs mt-1">Ranked 2 out of 76 IndiaToday</p>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="min-w-[280px] sm:min-w-[320px] bg-white rounded-xl shadow-md overflow-hidden">
+          <img src="https://via.placeholder.com/400x200" class="w-full h-32 object-cover">
+          <div class="p-4">
+            <h3 class="font-semibold">Christian Medical College - [CMC]</h3>
+            <p class="text-gray-500 text-sm">Vellore, Tamil Nadu | INC, MCI</p>
+            <p class="text-blue-600 font-medium mt-2">BMLT</p>
+            <p class="text-gray-700 text-sm">₹35.97K First Year Fees</p>
+            <p class="text-yellow-500 font-semibold">⭐ 4.4/5 <span class="text-gray-500 text-xs">(42 reviews)</span></p>
+            <p class="text-gray-500 text-xs mt-1">Ranked 770 out of 2000 US News</p>
+          </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="min-w-[280px] sm:min-w-[320px] bg-white rounded-xl shadow-md overflow-hidden">
+          <img src="https://via.placeholder.com/400x200" class="w-full h-32 object-cover">
+          <div class="p-4">
+            <h3 class="font-semibold">IIT Kanpur - Indian Institute of Technology [IITK]</h3>
+            <p class="text-gray-500 text-sm">Kanpur, Uttar Pradesh | UGC</p>
+            <p class="text-blue-600 font-medium mt-2">MBA/PGDM</p>
+            <p class="text-gray-700 text-sm">₹3.92 Lacs First Year Fees</p>
+            <p class="text-yellow-500 font-semibold">⭐ 4.4/5 <span class="text-gray-500 text-xs">(466 reviews)</span></p>
+            <p class="text-gray-500 text-xs mt-1">Ranked 222 out of 1401 QS</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Arrow -->
+      <button id="scrollRight1" class="p-3 bg-white rounded-full shadow hover:bg-gray-100">→</button>
+    </div>
+  </div>
+
+
+  <!-- Section 2 -->
+  <div class="bg-gray-50 p-6">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="flex items-center gap-3">
+        <!-- Left Arrow -->
+        <button id="scrollLeft2" class="p-3 bg-white rounded-full shadow hover:bg-gray-100">←</button>
+
+        <!-- Scrollable Container -->
+        <div id="cardsContainer2" class="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth w-full">
+          <!-- Repeat all 6 cards here again -->
+          <!-- Card 1 -->
+          <div class="min-w-[280px] sm:min-w-[320px] bg-white rounded-xl shadow-md overflow-hidden">
+            <img src="https://via.placeholder.com/400x200" class="w-full h-32 object-cover">
+            <div class="p-4">
+              <h3 class="font-semibold">Lexicon MILE - Management Institute of Leadership and…</h3>
+              <p class="text-gray-500 text-sm">Pune, Maharashtra | AICTE, NBA</p>
+              <p class="text-blue-600 font-medium mt-2">MBA/PGDM</p>
+              <p class="text-gray-700 text-sm">₹9.95 Lacs Total Fees</p>
+              <p class="text-yellow-500 font-semibold">⭐ 4.2/5 <span class="text-gray-500 text-xs">(61 reviews)</span></p>
+              <p class="text-gray-500 text-xs mt-1">Ranked 11 out of 80 TOI</p>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="min-w-[280px] sm:min-w-[320px] bg-white rounded-xl shadow-md overflow-hidden">
+            <img src="https://via.placeholder.com/400x200" class="w-full h-32 object-cover">
+            <div class="p-4">
+              <h3 class="font-semibold">KIIT School of Management [KSOM]</h3>
+              <p class="text-gray-500 text-sm">Bhubaneswar, Odisha | AICTE, UGC</p>
+              <p class="text-blue-600 font-medium mt-2">MBA/PGDM</p>
+              <p class="text-gray-700 text-sm">₹7.45 Lacs First Year Fees</p>
+              <p class="text-yellow-500 font-semibold">⭐ 4.3/5 <span class="text-gray-500 text-xs">(129 reviews)</span></p>
+              <p class="text-gray-500 text-xs mt-1">Ranked 2 out of 101 TOI</p>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="min-w-[280px] sm:min-w-[320px] bg-white rounded-xl shadow-md overflow-hidden">
+            <img src="https://via.placeholder.com/400x200" class="w-full h-32 object-cover">
+            <div class="p-4">
+              <h3 class="font-semibold">Parul University</h3>
+              <p class="text-gray-500 text-sm">Vadodara, Gujarat | AICTE, PCI</p>
+              <p class="text-blue-600 font-medium mt-2">B.Sc</p>
+              <p class="text-gray-700 text-sm">₹1.02 Lacs First Year Fees</p>
+              <p class="text-yellow-500 font-semibold">⭐ 4.1/5 <span class="text-gray-500 text-xs">(1261 reviews)</span></p>
+              <p class="text-gray-500 text-xs mt-1">Ranked 14 out of 52 Outlook</p>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="min-w-[280px] sm:min-w-[320px] bg-white rounded-xl shadow-md overflow-hidden">
+            <img src="https://via.placeholder.com/400x200" class="w-full h-32 object-cover">
+            <div class="p-4">
+              <h3 class="font-semibold">The West Bengal National University of Juridical Sciences - [NUJS]</h3>
+              <p class="text-gray-500 text-sm">Kolkata, West Bengal | BCI, UGC</p>
+              <p class="text-blue-600 font-medium mt-2">LLM</p>
+              <p class="text-gray-700 text-sm">₹1.08 Lacs Total Fees</p>
+              <p class="text-yellow-500 font-semibold">⭐ 4.2/5 <span class="text-gray-500 text-xs">(28 reviews)</span></p>
+              <p class="text-gray-500 text-xs mt-1">Ranked 2 out of 76 IndiaToday</p>
+            </div>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="min-w-[280px] sm:min-w-[320px] bg-white rounded-xl shadow-md overflow-hidden">
+            <img src="https://via.placeholder.com/400x200" class="w-full h-32 object-cover">
+            <div class="p-4">
+              <h3 class="font-semibold">Christian Medical College - [CMC]</h3>
+              <p class="text-gray-500 text-sm">Vellore, Tamil Nadu | INC, MCI</p>
+              <p class="text-blue-600 font-medium mt-2">BMLT</p>
+              <p class="text-gray-700 text-sm">₹35.97K First Year Fees</p>
+              <p class="text-yellow-500 font-semibold">⭐ 4.4/5 <span class="text-gray-500 text-xs">(42 reviews)</span></p>
+              <p class="text-gray-500 text-xs mt-1">Ranked 770 out of 2000 US News</p>
+            </div>
+          </div>
+
+          <!-- Card 6 -->
+          <div class="min-w-[280px] sm:min-w-[320px] bg-white rounded-xl shadow-md overflow-hidden">
+            <img src="https://via.placeholder.com/400x200" class="w-full h-32 object-cover">
+            <div class="p-4">
+              <h3 class="font-semibold">IIT Kanpur - Indian Institute of Technology [IITK]</h3>
+              <p class="text-gray-500 text-sm">Kanpur, Uttar Pradesh | UGC</p>
+              <p class="text-blue-600 font-medium mt-2">MBA/PGDM</p>
+              <p class="text-gray-700 text-sm">₹3.92 Lacs First Year Fees</p>
+              <p class="text-yellow-500 font-semibold">⭐ 4.4/5 <span class="text-gray-500 text-xs">(466 reviews)</span></p>
+              <p class="text-gray-500 text-xs mt-1">Ranked 222 out of 1401 QS</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Arrow -->
+        <button id="scrollRight2" class="p-3 bg-white rounded-full shadow hover:bg-gray-100">→</button>
+      </div>
+    </div>
+  </div>
+</section>
+<!------------------------ SECTION 06 END-------------------->
+
+
+<!------------------------ SECTION 07 -------------------->
+<section class="py-10">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <h2 class="text-2xl md:text-3xl font-bold mb-6">Watch Podcast & More</h2>
+
+      <!-- Slider wrapper -->
+      <div class="relative overflow-hidden">
+        <div id="slider"
+          class="flex gap-4 transition-transform duration-700 ease-in-out">
+          
+          <!-- 12 Video Boxes -->
+          <div class="w-72 flex-shrink-0 aspect-video rounded-xl overflow-hidden shadow-lg">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+              frameborder="0" allowfullscreen></iframe>
+          </div>
+          <div class="w-72 flex-shrink-0 aspect-video rounded-xl overflow-hidden shadow-lg">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/9bZkp7q19f0"
+              frameborder="0" allowfullscreen></iframe>
+          </div>
+          <div class="w-72 flex-shrink-0 aspect-video rounded-xl overflow-hidden shadow-lg">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/3JZ_D3ELwOQ"
+              frameborder="0" allowfullscreen></iframe>
+          </div>
+          <div class="w-72 flex-shrink-0 aspect-video rounded-xl overflow-hidden shadow-lg">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/L_jWHffIx5E"
+              frameborder="0" allowfullscreen></iframe>
+          </div>
+          <div class="w-72 flex-shrink-0 aspect-video rounded-xl overflow-hidden shadow-lg">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/eY52Zsg-KVI"
+              frameborder="0" allowfullscreen></iframe>
+          </div>
+          <div class="w-72 flex-shrink-0 aspect-video rounded-xl overflow-hidden shadow-lg">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/kJQP7kiw5Fk"
+              frameborder="0" allowfullscreen></iframe>
+          </div>
+          <div class="w-72 flex-shrink-0 aspect-video rounded-xl overflow-hidden shadow-lg">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/CevxZvSJLk8"
+              frameborder="0" allowfullscreen></iframe>
+          </div>
+          <div class="w-72 flex-shrink-0 aspect-video rounded-xl overflow-hidden shadow-lg">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/tVj0ZTS4WF4"
+              frameborder="0" allowfullscreen></iframe>
+          </div>
+          <div class="w-72 flex-shrink-0 aspect-video rounded-xl overflow-hidden shadow-lg">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/OPf0YbXqDm0"
+              frameborder="0" allowfullscreen></iframe>
+          </div>
+          <div class="w-72 flex-shrink-0 aspect-video rounded-xl overflow-hidden shadow-lg">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/hT_nvWreIhg"
+              frameborder="0" allowfullscreen></iframe>
+          </div>
+          <div class="w-72 flex-shrink-0 aspect-video rounded-xl overflow-hidden shadow-lg">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/2Vv-BfVoq4g"
+              frameborder="0" allowfullscreen></iframe>
+          </div>
+          <div class="w-72 flex-shrink-0 aspect-video rounded-xl overflow-hidden shadow-lg">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/60ItHLz5WEA"
+              frameborder="0" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+
+      <!-- Watch all videos button -->
+      <button class="mt-8 px-6 py-3 bg-red-600 text-white rounded-full font-semibold shadow-md hover:bg-red-700 transition">
+        ▶ Watch All Videos
+      </button>
+    </div>
+  </section>
+<!------------------------ SECTION 07 END-------------------->
+
+
+
+  <!-- Footer -->
+  <footer class="bg-blue-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+      
+      <!-- Top Row -->
+      <div class="flex flex-col md:flex-row md:justify-between md:items-center pb-6 border-b border-blue-700">
+        <!-- Logo -->
+        <a href="#" class="text-white text-2xl font-bold">CAREERS<span class="text-yellow-300">360</span></a>
+
+        <!-- Nav -->
+        <div class="flex gap-6 mt-4 md:mt-0 text-sm">
+          <a href="#" class="hover:text-yellow-300">About</a>
+          <a href="#" class="hover:text-yellow-300">Hiring</a>
+          <a href="#" class="hover:text-yellow-300">Magazine</a>
+          <a href="#" class="hover:text-yellow-300">News</a>
+          <a href="#" class="hover:text-yellow-300">Articles</a>
+          <a href="#" class="hover:text-yellow-300">Contact</a>
+          <a href="#" class="hover:text-yellow-300">Blogs</a>
+        </div>
+
+        <!-- Social Icons -->
+        <div class="flex gap-3 mt-4 md:mt-0">
+          <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" class="w-6 h-6" alt="Instagram"></a>
+          <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" class="w-6 h-6" alt="YouTube"></a>
+          <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" class="w-6 h-6" alt="Facebook"></a>
+          <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" class="w-6 h-6" alt="LinkedIn"></a>
+          <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733635.png" class="w-6 h-6" alt="Twitter"></a>
+        </div>
+      </div>
+
+      <!-- Main Columns -->
+      <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-8 py-10">
+        
+        <!-- Column 1 -->
+        <div>
+          <h3 class="font-semibold mb-4">Top Exams</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#" class="hover:text-yellow-300">JEE Main 2025</a></li>
+            <li><a href="#" class="hover:text-yellow-300">CAT 2025</a></li>
+            <li><a href="#" class="hover:text-yellow-300">NEET 2025</a></li>
+            <li><a href="#" class="hover:text-yellow-300">GATE 2025</a></li>
+            <li><a href="#" class="hover:text-yellow-300">XAT 2026</a></li>
+            <li><a href="#" class="hover:text-yellow-300">MAH MBA CET</a></li>
+            <li><a href="#" class="hover:text-yellow-300">MHCET Law</a></li>
+            <li><a href="#" class="hover:text-yellow-300">NIFT 2025</a></li>
+            <li><a href="#" class="hover:text-yellow-300">SNAP 2025</a></li>
+            <li><a href="#" class="hover:text-yellow-300">UCEED 2025</a></li>
+            <li><a href="#" class="hover:text-yellow-300">LPUNEST 2025</a></li>
+            <li><a href="#" class="hover:text-yellow-300">MET 2025</a></li>
+            <li><a href="#" class="hover:text-yellow-300">CUET 2025</a></li>
+            <li><a href="#" class="hover:text-yellow-300">SET 2025</a></li>
+            <li><a href="#" class="hover:text-yellow-300">NMAT 2025</a></li>
+            <li><a href="#" class="hover:text-yellow-300">CUET PG 2025</a></li>
+            <li><a href="#" class="hover:text-yellow-300">JET 2025</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 2 -->
+        <div>
+          <h3 class="font-semibold mb-4">College</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#" class="hover:text-yellow-300">College Review</a></li>
+            <li><a href="#" class="hover:text-yellow-300">Top Colleges in India</a></li>
+            <li><a href="#" class="hover:text-yellow-300">Top MBA Colleges in India</a></li>
+            <li><a href="#" class="hover:text-yellow-300">Top Engineering Colleges</a></li>
+            <li><a href="#" class="hover:text-yellow-300">Top MBA Colleges (CAT)</a></li>
+            <li><a href="#" class="hover:text-yellow-300">Top Law Colleges</a></li>
+            <li><a href="#" class="hover:text-yellow-300">Top Colleges in Chennai</a></li>
+            <li><a href="#" class="hover:text-yellow-300">Best Design Colleges</a></li>
+            <li><a href="#" class="hover:text-yellow-300">Top Medical Colleges</a></li>
+            <li><a href="#" class="hover:text-yellow-300">LPU</a></li>
+            <li><a href="#" class="hover:text-yellow-300">UPES</a></li>
+            <li><a href="#" class="hover:text-yellow-300">MAHE</a></li>
+            <li><a href="#" class="hover:text-yellow-300">SRM Chennai</a></li>
+            <li><a href="#" class="hover:text-yellow-300">Great Lakes</a></li>
+            <li><a href="#" class="hover:text-yellow-300">ICFAI Hyderabad</a></li>
+            <li><a href="#" class="hover:text-yellow-300">Jain University</a></li>
+            <li><a href="#" class="hover:text-yellow-300">Online MBA Colleges</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 3 -->
+        <div>
+          <h3 class="font-semibold mb-4">Predictors & Ebooks</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#" class="hover:text-yellow-300">CAT Percentile Predictor</a></li>
+            <li><a href="#" class="hover:text-yellow-300">JEE Main College Predictor</a></li>
+            <li><a href="#" class="hover:text-yellow-300">JEE Main Rank Predictor</a></li>
+            <li><a href="#" class="hover:text-yellow-300">CAT College Predictor</a></li>
+            <li><a href="#" class="hover:text-yellow-300">JEE Advanced Predictor</a></li>
+            <li><a href="#" class="hover:text-yellow-300">NEET Predictor</a></li>
+            <li><a href="#" class="hover:text-yellow-300">NEET Rank Predictor</a></li>
+            <li><a href="#" class="hover:text-yellow-300">GATE Predictor</a></li>
+            <li><a href="#" class="hover:text-yellow-300">CLAT Predictor</a></li>
+            <li><a href="#" class="hover:text-yellow-300">CLAT Rank Predictor</a></li>
+            <li><a href="#" class="hover:text-yellow-300">E-books & Sample Paper</a></li>
+            <li><a href="#" class="hover:text-yellow-300">College Predictor</a></li>
+            <li><a href="#" class="hover:text-yellow-300">MHCET Predictor</a></li>
+            <li><a href="#" class="hover:text-yellow-300">NIFT Predictor</a></li>
+            <li><a href="#" class="hover:text-yellow-300">CUET Predictor</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 4 -->
+        <div>
+          <h3 class="font-semibold mb-4">Resources</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#" class="hover:text-yellow-300">B. Tech Companion</a></li>
+            <li><a href="#" class="hover:text-yellow-300">MBBS Companion</a></li>
+            <li><a href="#" class="hover:text-yellow-300">NCERT</a></li>
+            <li><a href="#" class="hover:text-yellow-300">Courses</a></li>
+            <li><a href="#" class="hover:text-yellow-300">QnA</a></li>
+            <li><a href="#" class="hover:text-yellow-300">Webinars</a></li>
+            <li><a href="#" class="hover:text-yellow-300">MBA Salary</a></li>
+            <li><a href="#" class="hover:text-yellow-300">Certifications</a></li>
+            <li><a href="#" class="hover:text-yellow-300">Online MBA 2025</a></li>
+            <li><a href="#" class="hover:text-yellow-300">IIM Online MBA</a></li>
+            <li><a href="#" class="hover:text-yellow-300">IIM Fees</a></li>
+            <li><a href="#" class="hover:text-yellow-300">हिंदी न्यूज़</a></li>
+            <li><a href="#" class="hover:text-yellow-300">CAT Admit Card</a></li>
+            <li><a href="#" class="hover:text-yellow-300">XAT Admit Card</a></li>
+            <li><a href="#" class="hover:text-yellow-300">Registration</a></li>
+            <li><a href="#" class="hover:text-yellow-300">Counseling</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="border-t border-blue-700 py-4 flex flex-col md:flex-row justify-between items-center text-xs text-gray-200">
+        <div class="flex flex-wrap gap-4 mb-2 md:mb-0">
+          <a href="#" class="hover:text-yellow-300">Sitemap</a>
+          <a href="#" class="hover:text-yellow-300">Disclaimer</a>
+          <a href="#" class="hover:text-yellow-300">Comment Policy</a>
+          <a href="#" class="hover:text-yellow-300">Privacy Policy</a>
+          <a href="#" class="hover:text-yellow-300">Grievance Redressal</a>
+        </div>
+        <p>Copyright © 2024 Pathfinder Publishing Pvt Ltd.</p>
+      </div>
+    </div>
+  </footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- ===== PAGE JS: slider, dropdowns, mobile nav ===== -->
+  <script>
+    /* ---------- SLIDER (6 slides) ---------- */
+    (function () {
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const indicatorsEl = document.getElementById('indicators');
+      let idx = 0;
+      let autoplayInterval = null;
+      const AUTOPLAY_MS = 2000;
+
+      // init: show first slide
+      function show(i) {
+        slides.forEach((s, si) => s.classList.toggle('hidden', si !== i));
+        updateIndicators(i);
+        idx = i;
+      }
+
+      // create indicators
+      function createIndicators() {
+        slides.forEach((_, i) => {
+          const btn = document.createElement('button');
+          btn.className = 'w-3 h-3 rounded-full bg-white/60';
+          btn.setAttribute('aria-label', 'Go to slide ' + (i+1));
+          btn.addEventListener('click', () => { show(i); resetAutoplay(); });
+          indicatorsEl.appendChild(btn);
+        });
+      }
+      function updateIndicators(active) {
+        Array.from(indicatorsEl.children).forEach((c, i) => {
+          c.className = i===active ? 'w-3 h-3 rounded-full bg-white' : 'w-3 h-3 rounded-full bg-white/60';
+        });
+      }
+
+      // next / prev
+      function next() { show((idx + 1) % slides.length); }
+      function prev() { show((idx - 1 + slides.length) % slides.length); }
+
+      // autoplay
+      function startAutoplay() {
+        stopAutoplay();
+        autoplayInterval = setInterval(next, AUTOPLAY_MS);
+      }
+      function stopAutoplay() { if (autoplayInterval) { clearInterval(autoplayInterval); autoplayInterval = null; } }
+      function resetAutoplay() { startAutoplay(); }
+
+      // pointer swipe support:
+      let startX = null, deltaX = 0;
+      const slider = document.getElementById('slider');
+      slider.addEventListener('pointerdown', (e) => {
+        startX = e.clientX;
+        slider.setPointerCapture(e.pointerId);
+        stopAutoplay();
+      });
+      slider.addEventListener('pointermove', (e) => {
+        if (startX === null) return;
+        deltaX = e.clientX - startX;
+      });
+      slider.addEventListener('pointerup', (e) => {
+        if (startX === null) return;
+        if (deltaX > 50) prev();
+        else if (deltaX < -50) next();
+        startX = null; deltaX = 0;
+        resetAutoplay();
+      });
+      slider.addEventListener('pointercancel', () => { startX = null; deltaX = 0; resetAutoplay(); });
+
+      document.getElementById('nextBtn').addEventListener('click', () => { next(); resetAutoplay(); });
+      document.getElementById('prevBtn').addEventListener('click', () => { prev(); resetAutoplay(); });
+
+      // pause on hover/focus
+      slider.addEventListener('mouseenter', stopAutoplay);
+      slider.addEventListener('mouseleave', startAutoplay);
+      slider.addEventListener('focusin', stopAutoplay);
+      slider.addEventListener('focusout', startAutoplay);
+
+      // init
+      createIndicators();
+      show(0);
+      startAutoplay();
+    })();
+
+    /* ---------- DROPDOWNS (desktop = hover, mobile = click) ---------- */
+    (function () {
+      // Desktop: show dropdown on hover (handled with CSS classes via JS for fade)
+      document.querySelectorAll('.navBtn').forEach(btn => {
+        const ddId = btn.getAttribute('data-dropdown');
+        const panel = document.getElementById(ddId);
+        // hover: show / hide
+        btn.parentElement.addEventListener('mouseenter', () => {
+          panel.classList.remove('hidden'); panel.classList.add('visible');
+        });
+        btn.parentElement.addEventListener('mouseleave', () => {
+          panel.classList.remove('visible'); panel.classList.add('hidden');
+        });
+      });
+
+      // Mobile: toggles inside #mobileNav
+      document.querySelectorAll('[data-mobile-dropdown]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = btn.getAttribute('data-mobile-dropdown');
+          const panel = document.getElementById(id);
+          panel.classList.toggle('hidden');
+        });
+      });
+
+      // Mobile menu button
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      const mobileNav = document.getElementById('mobileNav');
+      mobileMenuBtn.addEventListener('click', () => mobileNav.classList.toggle('hidden'));
+
+      // Close dropdowns when clicking outside
+      document.addEventListener('click', (e) => {
+        const isNav = e.target.closest('.group');
+        if (!isNav) {
+          document.querySelectorAll('.fade-down').forEach(p => {
+            if (!p.classList.contains('hidden')) { p.classList.remove('visible'); p.classList.add('hidden'); }
+          });
+        }
+      });
+    })();
+
+
+    // SECOND ---SECTION ------------JAVASCRIPT------------------
+    const carousel = document.getElementById("carousel");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+
+    // Manual Scroll
+    nextBtn.addEventListener("click", () => {
+      carousel.scrollBy({ left: 370, behavior: "smooth" });
+    });
+
+    prevBtn.addEventListener("click", () => {
+      carousel.scrollBy({ left: -370, behavior: "smooth" });
+    });
+
+    // Auto Slide
+    setInterval(() => {
+      carousel.scrollBy({ left: 370, behavior: "smooth" });
+    }, 2000);
+
+
+    // ------------SECTION 02 -------END JAVASCRIPT-----------
+
+    // ------------SECTION 03 ------- JAVASCRIPT-----------
+
+     const carousel2 = document.getElementById("carousel2");
+    const prevBtn2 = document.getElementById("prevBtn2");
+    const nextBtn2 = document.getElementById("nextBtn2");
+
+    const scrollAmount = 180;
+
+    nextBtn2.addEventListener("click", () => {
+      carousel2.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    });
+
+    prevBtn2.addEventListener("click", () => {
+      carousel2.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+    });
+
+    // Auto slide
+    setInterval(() => {
+      carousel2.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    }, 3000);
+    // ------------SECTION 03 -------END JAVASCRIPT-----------
+
+
+    // section 04 javascript---------------------------------
+      // Counter Animation
+    function animateCounter(id, target, duration) {
+      const counter = document.getElementById(id);
+      let start = 0;
+      const stepTime = Math.abs(Math.floor(duration / target));
+      
+      const timer = setInterval(() => {
+        start++;
+        counter.textContent = start;
+        if (start >= target) clearInterval(timer);
+      }, stepTime);
+    }
+
+    // Run animation when page loads
+    window.onload = () => {
+      animateCounter("counter", 5000, 3000); // count to 5000 in 3 seconds
+    };
+
+    // ------------SECTION 04 -------END JAVASCRIPT-----------
+
+
+
+
+    // ------------SECTION 06 ------- JAVASCRIPT-----------
+
+    //   <!-- Scroll Buttons Script -->
+  
+    function enableScroll(containerId, leftBtnId, rightBtnId) {
+      const container = document.getElementById(containerId);
+      const leftBtn = document.getElementById(leftBtnId);
+      const rightBtn = document.getElementById(rightBtnId);
+
+      leftBtn.addEventListener("click", () => {
+        container.scrollBy({ left: -300, behavior: "smooth" });
+      });
+
+      rightBtn.addEventListener("click", () => {
+        container.scrollBy({ left: 300, behavior: "smooth" });
+      });
+    }
+
+    enableScroll("cardsContainer1", "scrollLeft1", "scrollRight1");
+    enableScroll("cardsContainer2", "scrollLeft2", "scrollRight2");
+  
+
+
+    // ------------SECTION 06 END ------- JAVASCRIPT-----------
+
+
+    // ------------SECTION 07  ------- JAVASCRIPT-----------
+
+
+
+      const slider = document.getElementById("slider");
+    const slides = slider.children;
+    const slideWidth = slides[0].offsetWidth + 16; // video width + gap
+    let index = 0;
+
+    function autoSlide() {
+      index++;
+      if (index >= slides.length) {
+        index = 0;
+      }
+      slider.style.transform = `translateX(-${index * slideWidth}px)`;
+    }
+
+    setInterval(autoSlide, 2500); // change every 2.5s
+
+   
+
+    // ------------SECTION 07 END ------- JAVASCRIPT-----------
+
+
+    // ------------SECTION 08  ------- JAVASCRIPT-----------
+
+
+
+
+
+
+
+
+
+   
+
+
+    
+  </script>
+
+</body>
+</html>
